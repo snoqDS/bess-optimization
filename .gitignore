@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environment
+.venv/
+venv/
+
+# Generated outputs - never commit these
+output/
+examples/output/
+
+# Data
+data/raw/*
+data/silver/*
+data/gold/*
+!data/raw/README.md
+!data/raw/grid/README.md
+!data/raw/price/README.md
+!data/raw/load/README.md
+!data/raw/weather/README.md
+
+# Jupyter
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+
+# Poetry
+poetry.lock
+
+# Logs
+*.log
