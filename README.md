@@ -1,79 +1,98 @@
 # Battery Energy Storage System (BESS) Optimization
 
-A Python project for optimizing battery dispatch to maximize revenue from energy arbitrage.
+A Python optimization engine for battery dispatch to maximize revenue from energy arbitrage. Built on Pyomo and HiGHS, it supports single-day and rolling horizon multi-day optimization with ramp rate, state-of-charge, and simultaneous charge/discharge constraints.
 
 ## Features
 
 - Battery dispatch optimization for energy arbitrage
-- Visualization of battery state of charge, power, and prices
-- Support for rolling horizon optimization over multiple days
-- Modular and extensible codebase
+- Rolling horizon optimization over multiple days
+- Ramp rate and simultaneous charge/discharge constraints
+- State of charge (SoC) min/max enforcement
+- Visualization of battery dispatch, SoC, and price signals
+- Modular and extensible optimization engine
+- 4 pytest tests passing
 
 ## Requirements
 
-- See pyproject.toml for more details of all libs.
-
-- Python 3.13+
+- Python 3.11+
 - Pyomo optimization framework
 - HiGHS solver
 - Pandas, NumPy, Matplotlib
 
+See `pyproject.toml` for full dependency list.
+
 ## Installation
 
-1. Create and navigate to your project directory:
-   mkdir -p /Projects/optimization/bess_proj
-   cd /Projects/optimization/bess_proj
+Clone the repository:
 
-2. Clone the repository contents into this directory:
-   git clone https://github.com/snoqDS/bess-optimization.git .
+    git clone https://github.com/snoqDS/bess-optimization.git
+    cd bess-optimization
 
-3. Set up the Poetry environment:
-   poetry install
+Install uv if not already installed:
 
-4. The HiGHS solver should already be installed but just in case, install the HiGHS solver:
-   poetry run pip install highspy
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+
+Install dependencies:
+
+    uv sync
+
+Run the optimization:
+
+    uv run python main.py
 
 ## Quick Start
 
-Run the main optimization:
-poetry run python main.py
+Run the main optimization with default battery parameters:
+
+    uv run python main.py
 
 Try the examples:
-poetry run python examples/simple_arbitrage.py
-poetry run python examples/multi_day_optimization.py
 
-## Documentation
+    uv run python examples/basic/simple_arbitrage.py
+    uv run python examples/basic/multi_day_optimization.py
 
-For detailed usage instructions, see the [User Guide](docs/user_guide.md).
+Run the test suite:
+
+    uv run pytest tests/ -v
 
 ## Project Structure
-```
-/bess_proj/
-│
-├── config/                # Configuration files
-├── data/                  # Data files
-├── docs/                  # Documentation
-├── examples/              # Example usage scripts
-├── main.py                # Main entry point
-├── notebooks/             # Jupyter notebooks
-├── pyproject.toml         # Poetry configuration
-├── scripts/               # Utility scripts
-├── src/                   # Source code
-│   └── opt_engine/        # Optimization engine
-│       ├── core/          # Core functionality
-│       ├── interfaces/    # External system interfaces
-│       ├── models/        # Optimization models
-│       ├── solvers/       # Solver interfaces
-│       └── utils/         # Utility functions
-└── tests/                 # Unit tests
-```
+
+    bess-optimization/
+    ├── config/                # Battery and solver configuration
+    │   └── battery_params/    # Battery parameter definitions
+    ├── data/                  # Data files (raw and processed)
+    ├── docs/                  # Documentation and user guide
+    ├── examples/              # Standalone runnable examples
+    │   └── basic/             # Single and multi-day examples
+    ├── notebooks/             # Jupyter notebooks for analysis
+    ├── scripts/               # Utility scripts
+    ├── src/
+    │   └── opt_engine/        # Core optimization engine
+    │       ├── core/          # Core functionality
+    │       ├── interfaces/    # External system interfaces
+    │       ├── models/        # Battery and market models
+    │       ├── solvers/       # Solver interfaces
+    │       └── utils/         # Utilities, logging, visualization
+    ├── tests/                 # Test suite
+    ├── main.py                # Main entry point
+    └── pyproject.toml         # Project configuration
+
+## Roadmap
+
+- [ ] Real market price data integration (ERCOT, CAISO via GridStatus)
+- [ ] Weather integration for forecasting high-stress and high-price periods
+- [ ] Multi-asset portfolio optimization (solar + BESS + flexible load)
+- [ ] Degradation modeling for battery lifecycle costing
+- [ ] REST API wrapper for dispatch recommendations
+- [ ] Streamlit dashboard for visualization
 
 ## License
 
-See LICENSE.md file for details.
+Apache 2.0 — see [LICENSE](LICENSE) for details.
 
-Copyright (c) 2025 Philip Regulski
+Copyright 2026 Philip Regulski
 
 ## Contact
 
-https://github.com/snoqDS
+- GitHub: [snoqDS](https://github.com/snoqDS)
+- LinkedIn: [philregulski](https://www.linkedin.com/in/philregulski/)
